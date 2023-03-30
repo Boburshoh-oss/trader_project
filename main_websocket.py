@@ -4,6 +4,7 @@ import json
 
 intervall = "1h"  # example: 1s 1m 3m 5m 15m 30m 1h 1d 1w 1M
 
+perscentage = 1  
 
 ws_url = f"wss://stream.binance.us:9443/ws/ethusdt@kline_{intervall}"
 
@@ -26,14 +27,14 @@ def on_message(ws, message):
     #calculate persatage of increase
     percentage_increased = calculate_percentage_change(
         float(current_price), float(high_price))
-    if abs(percentage_increased) >= 1:
+    if abs(percentage_increased) >= perscentage:
         print(
             f"ETH price has increased by {percentage_increased:.2f}% in the last 60 minutes.")
     
     # calculate persatage of deacrease
     percentage_decreased = calculate_percentage_change(
         float(current_price), float(low_price))
-    if abs(percentage_decreased) >= 1:
+    if abs(percentage_decreased) >= perscentage:
         print(
             f"ETH price has decreased by {percentage_decreased:.2f}% in the last 60 minutes.")
         
